@@ -1,14 +1,20 @@
-class Myprovider extends StatefulWidget {
+import 'package:flutter/material.dart';
 
-  @override
-  _MyproviderState createState() => _MyproviderState();
-}
 
-class _MyproviderState extends State<Myprovider> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      
-    );
+//step1
+class myprovider extends ChangeNotifier {
+//data
+  int _count = 0;
+
+  //events
+  void incrementCount() {
+    _count++;
+
+    notifyListeners();
+  }
+
+//get
+  int getValue() {
+    return _count;
   }
 }
