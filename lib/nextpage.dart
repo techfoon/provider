@@ -11,15 +11,40 @@ class Nextpage extends StatefulWidget {
 }
 
 class _NextpageState extends State<Nextpage> {
+
+
+  TextEditingController NameContorller= TextEditingController();
+    TextEditingController DescriptionContorller= TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(actions: [Title(color: Colors.red, child: Text("Good"))]),
+
+
+ body: Column(children: [
+
+  TextField(
+
+    controller: NameContorller,
+  
+  ),
+
+  TextField(
+
+    controller: DescriptionContorller,
+  
+  )
+ ],),
+
+
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
-            Provider.of<myprovider>(context ,listen: false).incrementCount();   ///Listen: False is used only where we get data inhere it is usless and taking memory.
+          
           },
           label: Text("OK")),
     );
   }
 }
+
+
+//  Provider.of<myprovider>(context ,listen: false).incrementCount();   ///Listen: False is used only where we get data inhere it is usless and taking memory.
