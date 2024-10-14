@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myprovider/editPage.dart';
 import 'package:myprovider/model.dart';
 import 'package:myprovider/nextpage.dart';
 import 'package:myprovider/provider/mapprovider.dart';
@@ -19,7 +20,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    alldata.clear();  /// very important step
+    alldata.clear();
+
+    /// very important step
     var data = Provider.of<Mapprovider>(context).getMap();
 
     for (Map<String, dynamic> eachNote in data) {
@@ -32,7 +35,9 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${Provider.of<myprovider>(context).getValue()} ok ${context.watch<myprovider>().getValue()}', /// there is not differen they work ssames
+              '${Provider.of<myprovider>(context).getValue()} ok ${context.watch<myprovider>().getValue()}',
+
+              /// there is not differen they work ssames
             ),
             data.isNotEmpty
                 ? Expanded(
@@ -40,8 +45,26 @@ class _MyHomePageState extends State<MyHomePage> {
                         itemCount: data.length,
                         itemBuilder: (_, index) {
                           return ListTile(
+                            leading: IconButton(
+                                onPressed: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return Editpage(
+                                       editindex: index,
+                                        edittitle: alldata[index].title,
+                                        editdescription: alldata[index].desc);
+                                  }));
+                                },
+                                icon: Icon(Icons.edit)),
                             title: Text(alldata[index].title),
                             subtitle: Text(alldata[index].desc),
+                            trailing: IconButton(
+                                onPressed: () {
+                                  context
+                                      .read<Mapprovider>()
+                                      .deleteMap(index: index);
+                                },
+                                icon: Icon(Icons.delete)),
                           );
                         }),
                   )

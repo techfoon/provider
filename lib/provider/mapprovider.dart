@@ -12,6 +12,16 @@ class Mapprovider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateMap({required NoteModel updatedNote, required int index}) {
+    _mData[index] = updatedNote.ModeltoMap();
+    notifyListeners();
+  }
+
+  void deleteMap({required int index}) {
+    _mData.removeAt(index);
+    notifyListeners();
+  }
+
 //get
   List<Map<String, dynamic>> getMap() {
     return _mData;
