@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myprovider/nextpage.dart';
+import 'package:myprovider/provider/mapprovider.dart';
 import 'package:myprovider/provider/myprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -13,22 +14,33 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  List<Map<String, dynamic>> data = [];
 
   @override
   Widget build(BuildContext context) {
+    data = Provider.of<Mapprovider>(context).getMap();
     return Scaffold(
       appBar: AppBar(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'You have pushed the button this many times:',
-            ),
             Text(
               '${Provider.of<myprovider>(context).getValue()}',
             ),
+            data.isNotEmpty
+                ? Expanded(
+                  child: ListView.builder(
+                      itemCount: data.length,
+                      itemBuilder: (_, index) {
+                        return ListTile(
+                  
+                          title:Text(data[index]['title']),
+                          subtitle:Text(data[index]['description']) ,
+                        );
+                      }),
+                )
+                : Text("List is Empty"),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {

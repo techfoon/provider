@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:myprovider/home.dart';
+import 'package:myprovider/provider/mapprovider.dart';
 import 'package:myprovider/provider/myprovider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-    create: (context) {
-      return myprovider();
-    },
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => myprovider()),
+      ChangeNotifierProvider(create: (context) => Mapprovider())
+    ],
     child: MyApp(),
   ));
 }
