@@ -1,6 +1,7 @@
 import 'dart:math';
 //import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:myprovider/model.dart';
 import 'package:myprovider/provider/mapprovider.dart';
 import 'package:myprovider/provider/myprovider.dart';
 import 'package:provider/provider.dart';
@@ -34,10 +35,17 @@ class _NextpageState extends State<Nextpage> {
           ),
           ElevatedButton(
               onPressed: () {
-                Provider.of<Mapprovider>(context, listen: false).addMap({
-                  'title': NameContorller.text.toString(),
-                  'description': DescriptionContorller.text.toString()
-                });
+                context.read<Mapprovider>().addMap(
+                    // both fuction is works same  only differce is yaha pe humko listen:false kerne ki need nahi hai   // ye 2 type ke hote hai  context.read() and context.watch()
+                    NoteModel(
+                        title: NameContorller.text.toString(),
+                        desc: DescriptionContorller.text.toString()));
+
+                //     Provider.of<Mapprovider>(context, listen: false).addMap(   // both fuction is works same  only differce is yaha pe humko listen:false kerne ki need  hai
+                //         NoteModel(
+                //             title: NameContorller.text.toString(),
+                //             desc: DescriptionContorller.text.toString())
+                //            );
 
                 Navigator.pop(context);
               },

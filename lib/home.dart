@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myprovider/model.dart';
 import 'package:myprovider/nextpage.dart';
 import 'package:myprovider/provider/mapprovider.dart';
 import 'package:myprovider/provider/myprovider.dart';
@@ -14,11 +15,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Map<String, dynamic>> data = [];
+  List<NoteModel> alldata = [];
 
   @override
   Widget build(BuildContext context) {
-    data = Provider.of<Mapprovider>(context).getMap();
+    alldata.clear();  /// very important step
+    var data = Provider.of<Mapprovider>(context).getMap();
+
+    for (Map<String, dynamic> eachNote in data) {
+      alldata.add(NoteModel.MaptoModel(eachNote));
+    }
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -26,20 +32,19 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '${Provider.of<myprovider>(context).getValue()}',
+              '${Provider.of<myprovider>(context).getValue()} ok ${context.watch<myprovider>().getValue()}', /// there is not differen they work ssames
             ),
             data.isNotEmpty
                 ? Expanded(
-                  child: ListView.builder(
-                      itemCount: data.length,
-                      itemBuilder: (_, index) {
-                        return ListTile(
-                  
-                          title:Text(data[index]['title']),
-                          subtitle:Text(data[index]['description']) ,
-                        );
-                      }),
-                )
+                    child: ListView.builder(
+                        itemCount: data.length,
+                        itemBuilder: (_, index) {
+                          return ListTile(
+                            title: Text(alldata[index].title),
+                            subtitle: Text(alldata[index].desc),
+                          );
+                        }),
+                  )
                 : Text("List is Empty"),
             ElevatedButton(
                 onPressed: () {

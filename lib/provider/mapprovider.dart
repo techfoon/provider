@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myprovider/model.dart';
 
 //step1
 class Mapprovider extends ChangeNotifier {
@@ -6,8 +7,8 @@ class Mapprovider extends ChangeNotifier {
   List<Map<String, dynamic>> _mData = [];
 
   //events
-  void addMap(Map<String, dynamic> values) {
-    _mData.add(values);
+  void addMap(NoteModel values) {
+    _mData.add(values.ModeltoMap());
     notifyListeners();
   }
 
