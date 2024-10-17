@@ -6,6 +6,8 @@ import 'package:myprovider/provider/mapprovider.dart';
 import 'package:myprovider/provider/myprovider.dart';
 import 'package:provider/provider.dart';
 
+import 'dart:developer';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -21,6 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     alldata.clear();
+    log('Builder is Called');
 
     /// very important step
     var data = Provider.of<Mapprovider>(context).getMap();
@@ -34,10 +37,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              '${Provider.of<myprovider>(context).getValue()} ok ${context.watch<myprovider>().getValue()}',
+            Consumer<myprovider>(
+              builder: (_, Provider, __) {
+                return Text(
+                  '${Provider.getValue()} or ${context.watch<myprovider>().getValue()}',
 
-              /// there is not differen they work ssames
+                  /// there is not differen they work ssames
+                );
+              },
             ),
             data.isNotEmpty
                 ? Expanded(
@@ -50,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
                                     return Editpage(
-                                       editindex: index,
+                                        editindex: index,
                                         edittitle: alldata[index].title,
                                         editdescription: alldata[index].desc);
                                   }));

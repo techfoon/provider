@@ -56,7 +56,7 @@ class _NextpageState extends State<Nextpage> {
           onPressed: () {
             Provider.of<myprovider>(context, listen: false).incrementCount();
 
-            Navigator.pop(context);
+         //   Navigator.pop(context);
           },
           label: Text("Increment")),
     );
