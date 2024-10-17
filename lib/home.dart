@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Consumer<myprovider>(
               builder: (_, Provider, __) {
                 return Text(
-                  '${Provider.getValue()} or ${context.watch<myprovider>().getValue()}',
+                  '${Provider.getValue()}',
 
                   /// there is not differen they work ssames
                 );
